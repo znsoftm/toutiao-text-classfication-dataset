@@ -1,5 +1,18 @@
 # 中文文本分类数据集
 
+
+ChangeLog:
+
+兼容python 3.0
+
+For Windows user:
+
+在windows下需要切换到 utf-8编码，方法是在控制台下运行以下命令后再运行脚本：
+
+chcp 65001 
+python get_data.py
+
+
 数据来源：
 
 今日头条客户端
