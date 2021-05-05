@@ -7,6 +7,8 @@ import json
 import time
 import random
 
+
+#windows chcp  65001 
 '''
 100 民生 故事 news_story
 101 文化 文化 news_culture
@@ -74,7 +76,7 @@ def get_data(tup):
 
 
     jj = json.loads(response.text)
-    with open('toutiao_cat_data.txt', 'a') as fp:
+    with open('toutiao_cat_data.txt', 'a',encoding="utf-8") as fp:
         for item in jj['data']:
             item = item['content']
             item = item.replace('\"', '"')
@@ -82,18 +84,18 @@ def get_data(tup):
             # item = item.decode('utf-8')
             item = json.loads(item)
             kws = ''
-            if item.has_key('keywords'):
+            if item.get('keywords') is not None: #if item.has_key('keywords'):
                 kws = item['keywords']
             
-            if item.has_key('ad_id'):
-                print 'ad'
-            elif not item.has_key('item_id') or not item.has_key('title'):
-                print 'bad'
+            if item.get('ad_id') is not None: #if item.has_key('ad_id'):
+                print ('ad')
+            elif  item.get('item_id') is None  or item.get('title') is None: #not item.has_key('item_id') or not item.has_key('title'):
+                print ('bad')
             else:
                 item_id = item['item_id']
-                print  g_count, cid, cname, item['item_id'], item['title'], kws
-                if g_id_cache.has_key(item_id):
-                    print 'dulp'
+                print ( g_count, cid, cname, item['item_id'], item['title'], kws)
+                if  g_id_cache.get(item_id) is not None: # g_id_cache.has_key(item_id):
+                    print ('dulp')
                 else:
                     g_id_cache[item_id] = 1
                     line = u"{}_!_{}_!_{}_!_{}_!_{}".format(item['item_id'], cid, cname, item['title'], kws)
@@ -105,14 +107,14 @@ def get_data(tup):
 
 def get_routine():
     global g_count
-    with open('toutiao_cat_data.txt', 'r') as fp:
+    with open('toutiao_cat_data.txt', 'r',encoding="utf-8") as fp:
         ll = fp.readlines()
         g_count = len(ll)
         for l in ll:
             ww = l.split('_!_')
             item_id = int(ww[0])
             g_id_cache[item_id] = 1
-        print 'load cache done, ', g_count
+        print('load cache done, ', g_count)
 
     while 1:
         time.sleep(10)
