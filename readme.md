@@ -1,7 +1,7 @@
-# 中文文本分类数据集
+# 头条 中文文本分类数据集
 
 
-ChangeLog:
+## ChangeLog:
 
 兼容python 3.0
 
