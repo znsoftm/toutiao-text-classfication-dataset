@@ -76,7 +76,7 @@ def get_data(tup):
 
 
     jj = json.loads(response.text)
-    with open('toutiao_cat_data.txt', 'a',encoding="utf-8") as fp:
+    with open('toutiao_cat_data.txt', 'a+',encoding="utf-8") as fp:
         for item in jj['data']:
             item = item['content']
             item = item.replace('\"', '"')
@@ -101,7 +101,7 @@ def get_data(tup):
                     line = u"{}_!_{}_!_{}_!_{}_!_{}".format(item['item_id'], cid, cname, item['title'], kws)
                     line = line.replace('\n', '').replace('\r', '')
                     line = line + '\n'
-                    fp.write(line.encode('utf-8'))
+                    fp.write(line) #fp.write(line.encode('utf-8'))
                     g_count += 1
     
 
